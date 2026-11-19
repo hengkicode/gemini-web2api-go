@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Gemini Cookie Sync for Edge</title>
+  <style>
+    :root {
+      --edge-blue: #0078d4;
+      --edge-blue-hover: #106ebe;
+      --bg: #ffffff;
+      --text: #242424;
+      --subtext: #616161;
+      --border: #e0e0e0;
+      --card-bg: #f9f9f9;
+      --success: #107c41;
+      --error: #d13438;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #202020;
+        --text: #f3f3f3;
+        --subtext: #a6a6a6;
+        --border: #3b3b3b;
+        --card-bg: #2d2d2d;
+      }
+    }
+    body {
+      font-family: "Segoe UI Variable Text", "Segoe UI", -apple-system, sans-serif;
+      width: 280px;
+      padding: 14px;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .header h1 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text);
+    }
+    .badge {
+      font-size: 10px;
+      background: rgba(0, 120, 212, 0.12);
+      color: var(--edge-blue);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .field {
+      margin-bottom: 12px;
+    }
+    label {
+      display: block;
+      font-size: 11px;
+      color: var(--subtext);
+      margin-bottom: 4px;
+    }
+    input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 12px;
+      background: var(--card-bg);
+      color: var(--text);
+      box-sizing: border-box;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--edge-blue);
+    }
+    button {
+      width: 100%;
+      padding: 9px 12px;
+      background: var(--edge-blue);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+    button:hover {
+      background: var(--edge-blue-hover);
+    }
+    button:active {
+      transform: scale(0.99);
+    }
+    button:disabled {
+      background: #8a8a8a;
+      cursor: not-allowed;
+    }
+    #status-card {
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .footer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--subtext);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Gemini Cookie Sync</h1>
+    <span class="badge">Edge</span>
+  </div>
+
+  <div class="field">
+    <label for="serverUrl">Target Local Server:</label>
+    <input type="text" id="serverUrl" value="http://localhost:8083">
+  </div>
+
+  <button id="syncBtn">
+    <span>⚡ Sync Cookie ke Web2API</span>
+  </button>
+
+  <div id="status-card">Pastikan tab <b>gemini.google.com</b> sudah login, lalu klik tombol di atas.</div>
+
+  <div class="footer">gemini-web2api-go · Neon Ready</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -13,7 +13,8 @@
 - `internal/app/gemini.go`: Core reverse-engineering protocol logic (`StreamGenerate`, `buildModelHeader`, `buildGeminiHeaders`, model registry `Models`)
 - `internal/app/xsrf.go`: XSRF token (`SNlM0e`), `Push-ID` (`qKIAYe`), `X-Client-Pctx` (`Ylro7b`) extraction from `/app`
 - `internal/app/cookie_pool.go`: Multi-account cookie rotation with automated `OSID` stripping & deduplication in `cleanCookieString`
-- `extension/`: Chrome extension for 1-click cookie syncing from active Gemini web session
+- `extension/`: Chrome extension for 1-click cookie syncing
+- `extension-edge/`: Dedicated Microsoft Edge extension with Fluent Design and sanitized cookie extraction
 
 ## Verified Model Registry: Gemini 4 Neon
 - **Upstream Model Display Name:** `4 Neon` / `4 Neon Medium` / `4 Neon High` / `4 Neon Low`
@@ -32,5 +33,4 @@
 
 ## Cookie Mismatch Fix
 - Google returns `302 accounts.google.com/CookieMismatch` if cookies contain conflicting `OSID` / `__Secure-OSID` pairs from other Google subdomains (Docs, YouTube, Cloud).
-- Implemented `cleanCookieString()` in `internal/app/cookie_pool.go` to automatically sanitize, strip non-Gemini OSID tokens, and deduplicate cookie keys.
-- Verified test request to `/v1/chat/completions` succeeded with HTTP 200, returning upstream `4 Neon Medium` with full `reasoning_content`.
+- Implemented `cleanCookieString()` in `internal/app/cookie_pool.go` and popup scripts to automatically sanitize, strip non-Gemini OSID tokens, and deduplicate cookie keys.

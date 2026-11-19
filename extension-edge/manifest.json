@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini Cookie Auto-Sync (Microsoft Edge)",
+  "version": "1.0.0",
+  "description": "Sinkronisasi 1-klik cookie Google Gemini dari Microsoft Edge ke gemini-web2api-go lokal.",
+  "permissions": [
+    "cookies",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.google.com/*",
+    "http://localhost:8083/*",
+    "http://127.0.0.1:8083/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Sync Gemini Cookies (Edge)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
