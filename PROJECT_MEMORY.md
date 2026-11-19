@@ -13,8 +13,8 @@
 - `internal/app/gemini.go`: Core reverse-engineering protocol logic (`StreamGenerate`, `buildModelHeader`, `buildGeminiHeaders`, model registry `Models`)
 - `internal/app/xsrf.go`: XSRF token (`SNlM0e`), `Push-ID` (`qKIAYe`), `X-Client-Pctx` (`Ylro7b`) extraction from `/app`
 - `internal/app/cookie_pool.go`: Multi-account cookie rotation with automated `OSID` stripping & deduplication in `cleanCookieString`
-- `extension/`: Chrome extension for 1-click cookie syncing
-- `extension-edge/`: Dedicated Microsoft Edge extension with Fluent Design and sanitized cookie extraction
+- `extension/` & `extension-edge/`: 1-click cookie syncing extensions for Chrome and Edge
+- `virtual_browser.py`: Standalone isolated Chromium instance (Playwright) with persistent profile in `virtual_browser_profile/` for zero-dependency login & auto-syncing.
 
 ## Verified Model Registry: Gemini 4 Neon
 - **Upstream Model Display Name:** `4 Neon` / `4 Neon Medium` / `4 Neon High` / `4 Neon Low`
