@@ -148,8 +148,52 @@ var Models = map[string]ModelConfig{
 	// 免费号发它会被静默降级成 3.5 Flash-Lite，所以 gate 成要 cookie（modelNeedsLogin）。
 	// 2026-11-16 Ultra 号实测：mode 8 现在回报 "4 Carbon"（otAQ7b 里 hex 95a4… 显示名「4 Carbon」、
 	// 代号 Carbon4p0）。Argon 这个名字留着兼容老配置，gemini-4-carbon 是同一条路由的新名字。
-	"gemini-4-argon":  {HexID: hexArgon4, Mode: 8, Upstream: "4 Argon", UpstreamAliases: []string{"4 Carbon"}, Desc: "alias of gemini-4-carbon (upstream renamed 4 Argon to 4 Carbon); needs a signed-in PAID/Ultra Google account"},
-	"gemini-4-carbon": {HexID: hexArgon4, Mode: 8, Upstream: "4 Carbon", UpstreamAliases: []string{"4 Argon"}, Desc: "4 Carbon (most complex work); needs a signed-in PAID/Ultra Google account (free accounts get downgraded to 3.5 Flash-Lite)"},
+	"gemini-4-argon":  {HexID: hexArgon4, Mode: 8, Upstream: "4 Argon", UpstreamAliases: []string{"4 Carbon", "4 Neon"}, Desc: "alias of gemini-4-carbon (upstream renamed 4 Argon to 4 Carbon / 4 Neon); needs a signed-in PAID/Ultra Google account"},
+	"gemini-4-carbon": {HexID: hexArgon4, Mode: 8, Upstream: "4 Carbon", UpstreamAliases: []string{"4 Argon", "4 Neon"}, Desc: "4 Carbon (most complex work); needs a signed-in PAID/Ultra Google account (free accounts get downgraded to 3.5 Flash-Lite)"},
+
+	// 4 Neon: Google Gemini web UI "Deeper analysis" slot (Neon4p0).
+	// Confirmed from live otAQ7b dump: Hex 9d8ca3786ebdfbea, Mode 3, Upstream "4 Neon".
+	// Tingkat penalaran: Rendah (think=1), Menengah (think=4), Tinggi (think=2).
+	"gemini-4-neon": {
+		HexID:           hexPro31,
+		Mode:            3,
+		ThinkWire:       thinkingMedium,
+		Upstream:        "4 Neon",
+		UpstreamAliases: []string{"Neon", "4 Neon"},
+		Desc:            "4 Neon (Deeper analysis / Menengah); needs a signed-in Google account with Neon access",
+	},
+	"gemini-neon": {
+		HexID:           hexPro31,
+		Mode:            3,
+		ThinkWire:       thinkingMedium,
+		Upstream:        "4 Neon",
+		UpstreamAliases: []string{"Neon", "4 Neon"},
+		Desc:            "alias of gemini-4-neon (Deeper analysis / Menengah)",
+	},
+	"gemini-4-neon-thinking": {
+		HexID:           hexPro31,
+		Mode:            3,
+		Thinking:        true,
+		Upstream:        "4 Neon",
+		UpstreamAliases: []string{"Neon", "4 Neon"},
+		Desc:            "4 Neon with High extended thinking (Tinggi / Sangat menyeluruh); needs a signed-in cookie",
+	},
+	"gemini-4-neon-thinking-medium": {
+		HexID:           hexPro31,
+		Mode:            3,
+		ThinkWire:       thinkingMedium,
+		Upstream:        "4 Neon",
+		UpstreamAliases: []string{"Neon", "4 Neon"},
+		Desc:            "4 Neon with Medium thinking (Menengah / Kedalaman seimbang); needs a signed-in cookie",
+	},
+	"gemini-4-neon-thinking-low": {
+		HexID:           hexPro31,
+		Mode:            3,
+		ThinkWire:       thinkingNormal,
+		Upstream:        "4 Neon",
+		UpstreamAliases: []string{"Neon", "4 Neon"},
+		Desc:            "4 Neon with Low thinking (Rendah / Fast and efficient); needs a signed-in cookie",
+	},
 
 	// 扩展思考版。inner[80]=2 跟模型 hex 正交，都能开；但只在登录态生效，
 	// 所以跟 3.1 Pro 一样在没 cookie 时不暴露。

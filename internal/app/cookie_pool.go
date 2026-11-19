@@ -352,10 +352,32 @@ var cookieTemplateOrder = []string{
 //   - 面板逐项模式的 {"SID":"a","SAPISID":"b",...}
 //
 // 不归一化的话池子里会存进一整段 JSON，SAPISID 提取和后续请求全错。
+func cleanCookieString(raw string) string {
+	parts := strings.Split(raw, ";")
+	seen := map[string]bool{}
+	var filtered []string
+	for _, p := range parts {
+		p = strings.TrimSpace(p)
+		idx := strings.Index(p, "=")
+		if idx <= 0 {
+			continue
+		}
+		name := p[:idx]
+		// OSID and __Secure-OSID from other subdomains (Docs, YouTube, Gmail, etc.)
+		// cause Google to reject the request with 302 -> accounts.google.com/CookieMismatch.
+		if name == "OSID" || name == "__Secure-OSID" || seen[name] {
+			continue
+		}
+		seen[name] = true
+		filtered = append(filtered, p)
+	}
+	return strings.Join(filtered, "; ")
+}
+
 func normalizeCookie(raw, who string) (string, bool) {
 	raw = strings.TrimSpace(raw)
 	if !strings.HasPrefix(raw, "{") {
-		return raw, true
+		return cleanCookieString(raw), true
 	}
 	var m map[string]interface{}
 	if err := json.Unmarshal([]byte(raw), &m); err != nil {
@@ -363,7 +385,7 @@ func normalizeCookie(raw, who string) (string, bool) {
 		return "", false
 	}
 	if c, ok := m["cookie"].(string); ok && strings.TrimSpace(c) != "" {
-		return strings.TrimSpace(c), true
+		return cleanCookieString(strings.TrimSpace(c)), true
 	}
 
 	str := func(k string) string {

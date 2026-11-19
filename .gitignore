@@ -9,8 +9,11 @@ data/
 *.db-shm
 *.db-wal
 cookie.txt
+config.json
 *.log
 tmp_*
+__pycache__/
+*.pyc
 
 # ─── Docker ───────────────
 .env

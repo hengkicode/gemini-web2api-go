@@ -40,10 +40,28 @@ func Run() {
 	adminToken := flag.String("admin-token", "", "admin token (empty = no auth, only safe on 127.0.0.1)")
 	apiKey := flag.String("api-key", "", "API key for /v1/* (locked). Empty = use kv-table key (auto-gen on first boot, mutable from admin UI)")
 	showVersion := flag.Bool("version", false, "print version and exit")
+	dumpModels := flag.Bool("dump-models", false, "query otAQ7b to inspect live upstream models and exit")
 	flag.Parse()
 
 	if *showVersion {
 		fmt.Printf("gemini-web2api-go %s\n", Version)
+		return
+	}
+
+	if *dumpModels {
+		cookieStr := ""
+		if *cookieFile != "" {
+			b, err := os.ReadFile(*cookieFile)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "failed to read cookie file: %v\n", err)
+				os.Exit(1)
+			}
+			cookieStr = strings.TrimSpace(string(b))
+		}
+		if err := DumpLiveModels(cookieStr, *proxy, 0); err != nil {
+			fmt.Fprintf(os.Stderr, "dump models error: %v\n", err)
+			os.Exit(1)
+		}
 		return
 	}
 

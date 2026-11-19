@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini Cookie Auto-Sync",
+  "version": "1.0",
+  "description": "1-Click sync Google Gemini cookies directly into gemini-web2api-go",
+  "permissions": [
+    "cookies",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*.google.com/*",
+    "http://localhost:8083/*",
+    "http://127.0.0.1:8083/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Sync Gemini Cookies"
+  }
+}
