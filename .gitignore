@@ -5,6 +5,7 @@ gemini-web2api
 
 # ─── Runtime data ─────────
 data/
+virtual_browser_profile/
 *.db
 *.db-shm
 *.db-wal
